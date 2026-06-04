@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>{{ config('app.name', 'Laravel') }} - Reserva tu Cita</title>
+
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
+
+        <style>
+            /* --- CSS NATIVO COMPLETAMENTE INDEPENDIENTE --- */
+            :root {
+                --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+                --slate-900: #0f172a;
+                --slate-600: #475569;
+                --slate-400: #94a3b8;
+                --cyan-400: #22d3ee;
+                --sky-500: #0ea5e9;
+                --purple-500: #a855f7;
+            }
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            html, body {
+                height: 100%;
+                font-family: var(--font-sans);
+                -webkit-font-smoothing: antialiased;
+                overflow-x: hidden;
+            }
+
+            /* Fondo animado modo oscuro por defecto (viendo tus capturas) */
+            body {
+                background: linear-gradient(-45deg, #0f172a, #083344, #1e1b4b, #0f172a);
+                background-size: 400% 400%;
+                animation: gradientAnimation 15s ease infinite;
+                color: #ffffff;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                min-height: screen;
+                position: relative;
+            }
+
+            @keyframes gradientAnimation {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+
+            /* Orbes de luz decorativos de fondo */
+            .glow-orb {
+                position: absolute;
+                border-radius: 50%;
+                filter: blur(100px);
+                z-index: 1;
+                opacity: 0.25;
+                animation: floatAnimation 8s ease-in-out infinite alternate;
+            }
+
+            .orb-1 {
+                width: 350px;
+                height: 350px;
+                background: var(--sky-500);
+                top: 15%;
+                left: 10%;
+            }
+
+            .orb-2 {
+                width: 400px;
+                height: 400px;
+                background: var(--purple-500);
+                bottom: 15%;
+                right: 10%;
+                animation-delay: 2s;
+            }
+
+            @keyframes floatAnimation {
+                0% { transform: translateY(0px) scale(1); }
+                100% { transform: translateY(-40px) scale(1.1); }
+            }
+
+            /* Estructura y Contenedores */
+            header, main, footer {
+                position: relative;
+                z-index: 10; /* Por encima de las esferas */
+                width: 100%;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 24px;
+            }
+
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-top: 24px;
+                padding-bottom: 24px;
+            }
+
+            /* Texto Gradiente */
+            .text-glow-gradient {
+                background: linear-gradient(to right, #38bdf8, var(--cyan-400), #c084fc);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                font-weight: 800;
+            }
+
+            .logo {
+                font-size: 24px;
+                font-weight: 700;
+                text-decoration: none;
+            }
+
+            /* Menú de navegación estilo píldora cristal */
+            .nav-container {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                background: rgba(15, 23, 42, 0.4);
+                padding: 6px 12px;
+                border-radius: 9999px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(12px);
+            }
+
+            .nav-link {
+                color: #cbd5e1;
+                text-decoration: none;
+                font-size: 14px;
+                font-weight: 600;
+                transition: color 0.2s;
+                padding: 6px 12px;
+            }
+
+            .nav-link:hover {
+                color: var(--cyan-400);
+            }
+
+            .nav-btn-register {
+                background: #ffffff;
+                color: var(--slate-900);
+                padding: 8px 16px;
+                border-radius: 9999px;
+                font-size: 14px;
+                font-weight: 600;
+                text-decoration: none;
+                transition: opacity 0.2s;
+            }
+
+            .nav-btn-register:hover {
+                opacity: 0.9;
+            }
+
+            /* Vista de bienvenida (Centro de la pantalla) */
+            main {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding-top: 48px;
+                padding-bottom: 48px;
+            }
+
+            .welcome-card {
+                text-align: center;
+                max-width: 750px;
+                width: 100%;
+            }
+
+            /* Badge superior */
+            .welcome-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background: rgba(14, 165, 233, 0.15);
+                color: var(--cyan-400);
+                padding: 6px 16px;
+                border-radius: 9999px;
+                font-size: 12px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                border: 1px solid rgba(34, 211, 238, 0.2);
+                margin-bottom: 24px;
+            }
+
+            .badge-dot {
+                width: 8px;
+                height: 8px;
+                background: var(--cyan-400);
+                border-radius: 50%;
+                display: inline-block;
+                box-shadow: 0 0 8px var(--cyan-400);
+            }
+
+            /* Títulos */
+            h1 {
+                font-size: 48px;
+                line-height: 1.1;
+                font-weight: 800;
+                letter-spacing: -1px;
+                margin-bottom: 20px;
+                color: #ffffff;
+            }
+
+            @media (min-width: 640px) {
+                h1 { font-size: 64px; }
+            }
+
+            p.subtitle {
+                font-size: 18px;
+                color: #94a3b8;
+                line-height: 1.6;
+                max-w: 550px;
+                margin: 0 auto 36px auto;
+                font-weight: 500;
+            }
+
+            /* Botones CTA de acción */
+            .cta-group {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                justify-content: center;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            @media (min-width: 480px) {
+                .cta-group {
+                    flex-direction: row;
+                    max-width: 100%;
+                }
+            }
+
+            .btn-primary-cta {
+                background: linear-gradient(135deg, var(--sky-500) 0%, #06b6d4 50%, var(--purple-500) 100%);
+                background-size: 200% auto;
+                color: #ffffff;
+                font-size: 16px;
+                font-weight: 700;
+                padding: 16px 32px;
+                border-radius: 16px;
+                text-decoration: none;
+                transition: all 0.4s ease;
+                box-shadow: 0 10px 20px rgba(6, 182, 212, 0.2);
+                text-align: center;
+            }
+
+            .btn-primary-cta:hover {
+                background-position: right center;
+                transform: translateY(-2px);
+                box-shadow: 0 12px 24px rgba(6, 182, 212, 0.4);
+            }
+
+            .btn-secondary-cta {
+                background: rgba(30, 41, 59, 0.5);
+                color: #e2e8f0;
+                font-size: 16px;
+                font-weight: 700;
+                padding: 16px 32px;
+                border-radius: 16px;
+                text-decoration: none;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                transition: all 0.2s;
+                backdrop-filter: blur(8px);
+                text-align: center;
+            }
+
+            .btn-secondary-cta:hover {
+                background: rgba(30, 41, 59, 0.8);
+                border-color: rgba(255, 255, 255, 0.2);
+            }
+
+            /* Footer */
+            footer {
+                text-align: center;
+                font-size: 12px;
+                color: #64748b;
+                padding-top: 24px;
+                padding-bottom: 24px;
+                font-weight: 600;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+
+        <header>
+            <a href="/" class="logo text-glow-gradient">
+                {{ config('app.name', 'Laravel') }}
+            </a>
+
+            @if (Route::has('login'))
+                <nav class="nav-container">
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="nav-link">Dashboard</a>
+                    @else
+                        <a href="{{ route('login') }}" class="nav-link">Iniciar Sesión</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="nav-btn-register">Registrarse</a>
+                        @endif
+                    @endauth
+                </nav>
+            @endif
+        </header>
+
+        <main>
+            <div class="welcome-card">
+                
+                <div class="welcome-badge">
+                    <span class="badge-dot"></span>
+                    ¡Te damos la bienvenida!
+                </div>
+
+                <h1>
+                    Gestiona tu tiempo.<br>
+                    <span class="text-glow-gradient">Reserva tu cita ahora</span>
+                </h1>
+
+                <p class="subtitle">
+                    Elige el día, la hora y el profesional que mejor se adapte a ti. Sin complicaciones, de forma rápida, segura y completamente online.
+                </p>
+
+                <div class="cta-group">
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="btn-primary-cta">
+                            Agendar mi Cita
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}" class="btn-primary-cta">
+                            Comenzar Reservación
+                        </a>
+                    @endauth
+                </div>
+
+            </div>
+        </main>
+
+        <footer>
+            &copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }}. Todos los derechos reservados.
+        </footer>
+
+    </body>
+</html>
