@@ -1,0 +1,143 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    /* 1. Paleta unificada: Azul petróleo profundo y grises oscuros */
+    background: linear-gradient(
+        -45deg, 
+        #0b131a, /* Gris azulado casi negro (base ultra elegante) */
+        #12232e, /* Azul petróleo profundo corporativo */
+        #004c6d, /* Azul petróleo medio para dar contraste */
+        #4a7c59  /* Toque sutil de verde/azul desaturado para los reflejos */
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-size: 400% 400%;
+    
+    /* 3. Llama a la animación (20 segundos, suave, infinita) */
+    animation: cambiarFondo 20s ease infinite;
+}
+
+@keyframes cambiarFondo {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Contenedor del Formulario adaptado a modo oscuro */
+.form-container {
+    background: #1a2630; /* Gris oscuro azulado idéntico a la tabla */
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid #2d3d4a; /* Borde sutil */
+    width: 100%;
+    max-width: 450px; /* Una sola columna derechita hacia abajo */
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4); /* Sombra pronunciada */
+}
+
+.form-header {
+    margin-bottom: 20px;
+}
+
+/* Botón Volver */
+.btn-back {
+    color: #94a3b8; /* Gris claro para legibilidad */
+    text-decoration: none;
+    font-size: 14px;
+    display: inline-block;
+    margin-bottom: 8px;
+    transition: color 0.2s ease;
+}
+
+.btn-back:hover {
+    color: #00a8cc; /* Cambia a turquesa al pasar el mouse */
+}
+
+/* Título principal del formulario */
+.form-header h2 {
+    color: #ffffff; /* Texto blanco limpio */
+    font-size: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Etiquetas (Labels) */
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #94a3b8; /* Gris intermedio soft */
+}
+
+/* Entradas de texto, selectores y áreas de texto */
+.form-group input, 
+.form-group select,
+.form-group textarea {
+    padding: 10px;
+    background-color: #243442; /* Fondo del input más claro que la tarjeta */
+    border: 1px solid #334155; /* Borde oscuro desaturado */
+    border-radius: 6px;
+    font-size: 14px;
+    color: #ffffff; /* Texto de escritura blanco */
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Estilo para los placeholders de los inputs */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #64748b; /* Gris apagado para los textos de ejemplo */
+}
+
+/* Opciones del selector (para que no se vean raras en algunos navegadores) */
+.form-group select option {
+    background-color: #1a2630;
+    color: #ffffff;
+}
+
+/* Efecto Focus en los campos */
+.form-group input:focus, 
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #00a8cc; /* Brillo turquesa/petróleo activo */
+    box-shadow: 0 0 0 3px rgba(0, 168, 204, 0.25);
+    background-color: #223241;
+}
+
+/* Botón Guardar / Enviar (Azul Petróleo Vibrante) */
+.btn-submit {
+    background-color: #0088a3;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(0, 136, 163, 0.2);
+    transition: all 0.2s ease;
+}
+
+.btn-submit:hover {
+    background-color: #00a8cc;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(0, 168, 204, 0.35);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}

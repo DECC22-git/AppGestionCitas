@@ -7,6 +7,34 @@ use Illuminate\Database\Eloquent\Model;
 
 class Diagnostic extends Model
 {
-    /** @use HasFactory<\Database\Factories\DiagnosticFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'description',
+        'date',
+        'appointment_id',
+        'doctor_id',
+        'patient_id',
+        'severity',
+        'recommendations',
+        'diagnostic_type',
+    ];
+
+    // Relación con la Cita
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class);
+    }
+
+    // Relación con el Médico
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class);
+    }
+
+    // Relación con el Paciente
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
 }
