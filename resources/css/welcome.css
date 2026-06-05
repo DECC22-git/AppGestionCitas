@@ -1,5 +1,5 @@
 
-            /* --- CSS NATIVO COMPLETAMENTE INDEPENDIENTE --- */
+
             :root {
                 --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
                 --slate-900: #0f172a;
@@ -207,7 +207,7 @@
                 font-size: 18px;
                 color: #94a3b8;
                 line-height: 1.6;
-                max-w: 550px;
+                max-width: 550px;
                 margin: 0 auto 36px auto;
                 font-weight: 500;
             }

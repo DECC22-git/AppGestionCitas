@@ -15,14 +15,13 @@ class PatientsController extends Controller
     {
         $search = $request->input('search');
 
-        // Aquí guardas los datos en la variable $patients (en PLURAL)
         $patients = Patient::when($search, function ($query, $search) {
             return $query->where('blood_type', 'LIKE', "%{$search}%")
                         ->orWhere('first_name', 'LIKE', "%{$search}%")
                         ->orWhere('last_name', 'LIKE', "%{$search}%");
         })->get();
 
-        // CORRECCIÓN 1: Pasamos 'patients' en plural para que la tabla index lo reconozca
+
         return view('patient.index', compact('patients'));
     }
 
@@ -48,14 +47,14 @@ class PatientsController extends Controller
         return redirect()->route('patient.index')->with('success', 'Paciente registrado correctamente.');
     }
 
-    // CORRECCIÓN 2: Cambiamos el parámetro a $patient (SINGULAR) para que Laravel haga Route Model Binding con 'patient'
+ 
     public function edit(Patient $patient)
     {
-        // CORRECCIÓN 3: Pasamos 'patient' en singular (coincidiendo con la variable de arriba)
+
         return view('patient.edit', compact('patient'));
     }
 
-    // CORRECCIÓN 4: Cambiamos el parámetro a $patient (SINGULAR)
+
     public function update(Request $request, Patient $patient)
     {
         $validated = $request->validate([
@@ -68,7 +67,7 @@ class PatientsController extends Controller
             'blood_type'=>'nullable|string',
         ]);
 
-        // Usamos la variable corregida
+
         $patient->update($validated);
 
         return redirect()->route('patient.index')->with('success', 'Paciente actualizado con éxito.');

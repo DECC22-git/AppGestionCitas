@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Paciente</title>
-    @vite(['resources/css/patient/patient-create.css'])
+    @vite(['resources/css/create.css'])
 </head>
 <body>
 
